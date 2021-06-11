@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
 import { ethers } from "ethers"
-import { Web3Context } from "web3-hooks";
+import { Web3Context, useContract, useContext } from "web3-hooks";
 import Nav from "./components/Nav"
 import Header from "./components/Header"
 import Owner from "./components/Owner"
+
+const 
 
 
 function Dapp() {
