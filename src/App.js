@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import React from 'react'
 import { useContract } from 'web3-hooks'
 import { counterAddress, counterAbi } from './contracts/Counter'
@@ -26,16 +26,16 @@ function App() {
         <Nav />
         <div className="mt-5 pt-3">
           <Switch>
-            <Route exact path="/sro-calculator.netlify.app">
+            <Route exact path="/">
               <CounterContext.Provider value={counter}>
                 <Home />
               </CounterContext.Provider>
             </Route>
             <IcoContext.Provider value={[ico, calculator, sarahro]}>
-              <Route exact path="/sro-calculator.netlify.app/buyToken">
+              <Route exact path="/buyToken">
                   <BuyToken />
               </Route>
-              <Route exact path="sro-calculator.netlify.app/calculator">
+              <Route exact path="/calculator">
                   <Calculator />
               </Route>
             </IcoContext.Provider>
