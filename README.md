@@ -8,7 +8,7 @@
 - network : Rinkeby
 - SaraRo website
 
-  In this contract you will be able to bu SRO tokens from his ICO.
+  In this repository you will be able to bu SRO tokens from his ICO.
   Then you could use those tokens to use our latest ultimate Calculator !!! (the most advanced in the world)
 
 
@@ -25,6 +25,6 @@ to use in localhost
 ```
 yarn start
 ```
-- first connect your metamask account (displayed in the *navbar* up right) and make sure to be into **Rinkeby** network
-- Once connected go to `buyToken` page in order to buy SRO against ether (make sure to own ether in that network).
-- Then go to Calculator in the *navBar* to use the *ultimate* calculate
+1. first connect your metamask account (displayed in the *navbar* up right) and make sure to be into **Rinkeby** network
+2. Once connected go to `buyToken` page in order to buy SRO against ether (make sure to own ether in that network).
+3. Then go to Calculator in the *navBar* to use the *ultimate* calculate
