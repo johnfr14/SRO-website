@@ -1,4 +1,4 @@
-export const calculatorAddress = "0x64d2a88F5b76AE17Df2C1cb9cA2011037C2f6181"
+export const calculatorAddress = "0x18Da78627DBA05E217CF9B9d9dc5A0250E294825"
 
 export const calculatorAbi =  [
 			{
@@ -129,22 +129,22 @@ export const calculatorAbi =  [
 			{
 				"inputs": [
 					{
-						"internalType": "int256",
+						"internalType": "int16",
 						"name": "nb1",
-						"type": "int256"
+						"type": "int16"
 					},
 					{
-						"internalType": "int256",
+						"internalType": "int16",
 						"name": "nb2",
-						"type": "int256"
+						"type": "int16"
 					}
 				],
 				"name": "add",
 				"outputs": [
 					{
-						"internalType": "int256",
+						"internalType": "int16",
 						"name": "",
-						"type": "int256"
+						"type": "int16"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -153,22 +153,22 @@ export const calculatorAbi =  [
 			{
 				"inputs": [
 					{
-						"internalType": "int256",
+						"internalType": "int16",
 						"name": "nb1",
-						"type": "int256"
+						"type": "int16"
 					},
 					{
-						"internalType": "int256",
+						"internalType": "int16",
 						"name": "nb2",
-						"type": "int256"
+						"type": "int16"
 					}
 				],
 				"name": "div",
 				"outputs": [
 					{
-						"internalType": "int256",
+						"internalType": "int16",
 						"name": "",
-						"type": "int256"
+						"type": "int16"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -177,22 +177,22 @@ export const calculatorAbi =  [
 			{
 				"inputs": [
 					{
-						"internalType": "int256",
+						"internalType": "int16",
 						"name": "nb1",
-						"type": "int256"
+						"type": "int16"
 					},
 					{
-						"internalType": "int256",
+						"internalType": "int16",
 						"name": "nb2",
-						"type": "int256"
+						"type": "int16"
 					}
 				],
 				"name": "mod",
 				"outputs": [
 					{
-						"internalType": "int256",
+						"internalType": "int16",
 						"name": "",
-						"type": "int256"
+						"type": "int16"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -201,22 +201,22 @@ export const calculatorAbi =  [
 			{
 				"inputs": [
 					{
-						"internalType": "int256",
+						"internalType": "int16",
 						"name": "nb1",
-						"type": "int256"
+						"type": "int16"
 					},
 					{
-						"internalType": "int256",
+						"internalType": "int16",
 						"name": "nb2",
-						"type": "int256"
+						"type": "int16"
 					}
 				],
 				"name": "mul",
 				"outputs": [
 					{
-						"internalType": "int256",
+						"internalType": "int16",
 						"name": "",
-						"type": "int256"
+						"type": "int16"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -258,22 +258,22 @@ export const calculatorAbi =  [
 			{
 				"inputs": [
 					{
-						"internalType": "int256",
+						"internalType": "int16",
 						"name": "nb1",
-						"type": "int256"
+						"type": "int16"
 					},
 					{
-						"internalType": "int256",
+						"internalType": "int16",
 						"name": "nb2",
-						"type": "int256"
+						"type": "int16"
 					}
 				],
 				"name": "sub",
 				"outputs": [
 					{
-						"internalType": "int256",
+						"internalType": "int16",
 						"name": "",
-						"type": "int256"
+						"type": "int16"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -293,4 +293,3 @@ export const calculatorAbi =  [
 				"type": "function"
 			}
 		]
-

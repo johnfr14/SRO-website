@@ -1,6 +1,6 @@
-export const address = "0x1557f54b68B6CF73533326edaf1A186DCdA1f7D9"
+export const counterAddress = "0x1557f54b68B6CF73533326edaf1A186DCdA1f7D9"
 
-export const abi = [
+export const counterAbi = [
 			{
 				"inputs": [],
 				"name": "count",
@@ -28,4 +28,4 @@ export const abi = [
 				"stateMutability": "nonpayable",
 				"type": "function"
 			}
-		],
+		]

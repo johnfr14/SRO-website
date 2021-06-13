@@ -1,14 +1,10 @@
 import { useContext, useState } from "react";
 import { ethers } from "ethers"
-import { Web3Context, useContract, useContext } from "web3-hooks";
-import Nav from "./components/Nav"
-import Header from "./components/Header"
-import Owner from "./components/Owner"
+import { Web3Context } from "web3-hooks";
+import Header from "../components/Header"
+import Owner from "../components/Owner"
 
-const 
-
-
-function Dapp() {
+const Home = () => {
   const [web3State, login] = useContext(Web3Context)
   const [ethBalance, setEthBalance] = useState(0)
   const [address, setAddress] = useState() 
@@ -34,10 +30,10 @@ function Dapp() {
     }
   }
 
-  return (<>
-    <Nav />
+  return (
+  <>
     <Header />
-    {web3State.account === "0x9ad250c29f8cb07dc28e6f6eef02543cc08433db" ? <Owner /> : ""}
+    {web3State.account === "0x9ad250c29f8cb07dc28e6f6eef02543cc08433db" ? (<Owner />) : ""}
     <h1 className="btn btn-dark m-4 ">Hello hardfork</h1>
     <p>MetaMask installed: {web3State.isMetaMask ? "yes" : "no"}</p>
     <p>Web3: {web3State.isWeb3 ? "injected" : "no-injecetd"}</p>
@@ -63,8 +59,8 @@ function Dapp() {
 
     <input className="mx-2" id="eth2send" type="text" placeholder="amount to send" onChange={(e) => setEth2Send(e.target.value)} />
     <button className="btn btn-danger" onClick={handleClickSend}>Send moula</button>
-   </>
+  </>
   );
 }
 
-export default Dapp;
+export default Home;

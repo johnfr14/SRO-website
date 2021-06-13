@@ -243,4 +243,4 @@ export const icoAbi = [
 				"stateMutability": "payable",
 				"type": "receive"
 			}
-		],
+		]

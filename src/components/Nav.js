@@ -1,21 +1,34 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { ethers } from "ethers"
 import { Web3Context } from "web3-hooks";
 import SRO from '../img/50pxSardineRO.png';
 
 const Nav = () => {
   const [web3State, login] = useContext(Web3Context)
+  const [ethBalance, setEthBalance] = useState(0)
   return (
-  <nav class="navbar navbar-dark bg-dark fixed-top">
-    
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
     <div class="pos-f-t">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <img class="ms-4 me-2" src={SRO} alt="SRO-logo"/>
-        <a class="navbar-brand" href="/">SarahRo</a>
+      <img class="ms-2 me-2" src={SRO} alt="SRO-logo"/>
+      <a class="navbar-brand" href="/">SarahRo</a>
     </div>
 
-     {!web3State.isLogged ? (
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="/">Home</a>
+        <a class="nav-link" href="/buyToken">BuyToken</a>
+        <a class="nav-link" href="/calculator">Calculator</a>
+      </div>
+    </div>
+
+    <p className="text-white">your balance: {web3State.balance} ETHER </p>
+
+    {!web3State.isLogged ? (
       <>
         <button className="btn btn-secondary mx-4" onClick={login}>Login</button>
       </>
@@ -24,8 +37,8 @@ const Nav = () => {
         <button className="btn btn-success mx-4">{web3State.account.split("").splice(0,6).join("") + "..." + web3State.account.split("").splice(-4).join("")}</button>
       </>
     )}
-    
-  </nav>
+  </div>
+</nav>
   )
 }
 
