@@ -26,19 +26,21 @@ function App() {
         <Nav />
         <div className="mt-5 pt-3">
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/sro-calculator.netlify.app">
               <CounterContext.Provider value={counter}>
                 <Home />
               </CounterContext.Provider>
             </Route>
             <IcoContext.Provider value={[ico, calculator, sarahro]}>
-              <Route exact path="/buyToken">
+              <Route exact path="/sro-calculator.netlify.app/buyToken">
                   <BuyToken />
               </Route>
-              <Route exact path="/calculator">
+              <Route exact path="sro-calculator.netlify.app/calculator">
                   <Calculator />
               </Route>
             </IcoContext.Provider>
+            <Route path="*" />
+            <Redirect to="/404" />
 
           </Switch>
           </div>
