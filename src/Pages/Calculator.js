@@ -100,28 +100,29 @@ const Calculator = () => {
   }
 
 
-  useEffect(async () => {  
-      console.log(web3State.isLogged)
+  useEffect(() => {  
+    async function ismounted () {
+      if (web3State.isLogged) {
+        try {
+          let allowance = await sarahro.allowance(web3State.account, "0x18Da78627DBA05E217CF9B9d9dc5A0250E294825")
+          allowance = Math.floor(ethers.utils.formatEther(allowance))
+          if (allowance > 0 ) {
+          setApproved(true)
+          setError("")
+          } else {
+            setApproved(false)
+          }
+          const balance = await ico.balanceOf(web3State.account) 
+          const SROAmount =  Math.floor(ethers.utils.formatEther(balance))
+          setBalance(SROAmount)
 
-    if (web3State.isLogged) {
-      try {
-        let allowance = await sarahro.allowance(web3State.account, "0x18Da78627DBA05E217CF9B9d9dc5A0250E294825")
-        allowance = Math.floor(ethers.utils.formatEther(allowance))
-        if (allowance > 0 ) {
-        setApproved(true)
-        setError("")
-        } else {
-          setApproved(false)
+        } catch (e) {
+          console.error(e.message)
         }
-        const balance = await ico.balanceOf(web3State.account) 
-        const SROAmount =  Math.floor(ethers.utils.formatEther(balance))
-        setBalance(SROAmount)
-
-      } catch (e) {
-        console.error(e.message)
       }
     }
-  },[web3State])
+    ismounted()
+  },[web3State, ico, sarahro])
 
   return (<>
     <h1>SRO Calculator ultra</h1>

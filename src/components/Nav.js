@@ -1,11 +1,10 @@
-import { useContext, useState } from "react";
-import { ethers } from "ethers"
+import { useContext } from "react";
+
 import { Web3Context } from "web3-hooks";
 import SRO from '../img/50pxSardineRO.png';
 
 const Nav = () => {
   const [web3State, login] = useContext(Web3Context)
-  const [ethBalance, setEthBalance] = useState(0)
   return (
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
