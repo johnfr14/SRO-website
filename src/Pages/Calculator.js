@@ -11,16 +11,18 @@ const Calculator = () => {
 
   const [calcul, setCalcul] = useState({nb1: 0, operation: ""})
   const [display, setDisplay] = useState("")
-  const [result, setResult] = useState(0)
+  const [result, setResult] = useState([0, false])
 
   const [balance, setBalance] = useState(0)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
+  const spinner = <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+
 
   // console.log(calcul)
   // console.log(display)
-   console.log(web3State)
+  //console.log(web3State)
 
   const handleCalculButton = (e) => {
     if(['+','-','*','/','%'].includes(e.target.value)) {
@@ -29,64 +31,63 @@ const Calculator = () => {
     } else if (Number(e.target.value) > -1 && Number(e.target.value) < 10) {
       setDisplay(display + e.target.value)
     } 
+    setResult([0, false])
   }
 
   const handleResultButton = async () => {
     let result;
+    let result2
+    setLoading(true)
     try {
       switch(calcul.operation) {
         case '+':
           result = await calculator.add(calcul.nb1, display);
           await result.wait()
+          result2 = Number(calcul.nb1) + Number(display)
           break
         case '-':
           result = await calculator.sub(calcul.nb1, display);
           await result.wait()
+          result2 = calcul.nb1 - display
           break
         case '*':
           result = await calculator.mul(calcul.nb1, display);
           await result.wait()
+          result2 = calcul.nb1 * display
           break
         case '/':
           result = await calculator.div(calcul.nb1, display);
           await result.wait()
+          result2 = calcul.nb1 / display
           break
         case '%':
           result = await calculator.mod(calcul.nb1, display);
           await result.wait()
+          result2 = calcul.nb1 % display
           break
         default :
           console.log("fail")
       }
     } catch (e) {
       setError(e.error.message)
+      setLoading(false)
     }
+    setLoading(false)
     console.log(result)
     handleCancelButton()
-    handleBalanceButton()
-    setResult(ethers.utils.formatEther(result.value))
+    setResult([result2, true])
   }
 
   const handleCancelButton = () => {
     setDisplay("")
     setCalcul({nb1: 0, operation: ""})
-  }
-
-  const handleBalanceButton = async () => {
-    try {
-      const balance = await ico.balanceOf(web3State.account) 
-      const SROAmount = ethers.utils.formatEther(balance)
-      setBalance(SROAmount)
-    } catch (e) {
-      setError(e.message)
-    }
+    setResult([0, false])
   }
 
   const handleApproveButton = async () => {
-    if (!(await sarahro.allowance(web3State.account, "0x18Da78627DBA05E217CF9B9d9dc5A0250E294825")) > 0){
         try {
         setLoading(true)
-        const tx = await sarahro.approve("0x18Da78627DBA05E217CF9B9d9dc5A0250E294825", ico.balanceOf(web3State.account))
+        const tx = await sarahro.approve("0x18Da78627DBA05E217CF9B9d9dc5A0250E294825", ethers.utils.parseEther('10000000'))
         await tx.wait()
         setLoading(false)
         setApproved(true)
@@ -94,14 +95,11 @@ const Calculator = () => {
         setLoading(false)
         setError(e.message)
       }
-    } else {
-      setApproved(true)
-    }
   }
 
 
-  useEffect(() => {  
-    async function ismounted () {
+  useEffect(() => { 
+    async function fetchData() {
       if (web3State.isLogged) {
         try {
           let allowance = await sarahro.allowance(web3State.account, "0x18Da78627DBA05E217CF9B9d9dc5A0250E294825")
@@ -121,7 +119,8 @@ const Calculator = () => {
         }
       }
     }
-    ismounted()
+    fetchData()
+    
   },[web3State, ico, sarahro])
 
   return (<>
@@ -130,11 +129,11 @@ const Calculator = () => {
       <div className="row">
 
         <div className="calculate col-6">
-              <h1 type="text" class="result mb-5 ms-2 pt-5 bg-dark text-white">{display}</h1>
+              <h1 type="text" class="result  ms-2 pt-4 bg-dark text-white">{result[1] ? result[0] : display}</h1>
               <div class="first-row col-12">
                 <button onClick={handleCancelButton} type="button" name="" value="c" class="global">c</button>
-                <button type="button" name="" value="(" class="global">(</button>
-                <button type="button" name="" value=")" class="global">)</button>
+                <button type="button" name="" value="(" class="global">SRO</button>
+                <button type="button" name="" value=")" class="global">🌖</button>
                 <button onClick={handleCalculButton} type="button" name="" value="%" class="global">%</button>
               </div>
               <div class="second-row col-12">
@@ -161,8 +160,8 @@ const Calculator = () => {
                   <button onClick={() => setDisplay(display.split("").splice(0, (display.length - 1)).join(''))} type="button" name="" value="Del" class=" red small white-text top-margin">DEL</button>
 
                   <button onClick={handleResultButton} type="button" name="" value="=" class="green white-text big2 top-margin" disabled={!approved}>{approved ? "" : <button onClick={handleApproveButton} id="approve" className="btn btn-light" disabled={loading}>{loading ?
-                          <p><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Processing...</p> : "Approve"}</button>}
-                    =
+                          <p>{spinner}Processing...</p> : "Approve"}</button>}
+                    {loading ? spinner : "="}
                   </button>
 
                 </div>
@@ -182,7 +181,6 @@ const Calculator = () => {
       </div>
 
     </div>
-    { result && <div class="alert alert-success" role="alert">RESULT : {result}</div>}
     </>
   )
 }
