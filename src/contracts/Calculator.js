@@ -1,4 +1,4 @@
-export const calculatorAddress = "0xFf3BfdAD3B178b941Bc47732E2220877a0EbC6CF"
+export const calculatorAddress = "0x9738F3D26793e52573CF8Ed94bF5fe175380e1Ac"
 
 export const calculatorAbi =  [
 			{
@@ -28,64 +28,7 @@ export const calculatorAbi =  [
 						"type": "int256"
 					}
 				],
-				"name": "Added",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "int256",
-						"name": "res",
-						"type": "int256"
-					}
-				],
-				"name": "Divided",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "int256",
-						"name": "res",
-						"type": "int256"
-					}
-				],
-				"name": "Moduled",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "int256",
-						"name": "res",
-						"type": "int256"
-					}
-				],
-				"name": "Muled",
+				"name": "Operation",
 				"type": "event"
 			},
 			{
@@ -105,25 +48,6 @@ export const calculatorAbi =  [
 					}
 				],
 				"name": "OwnershipTransferred",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "int256",
-						"name": "res",
-						"type": "int256"
-					}
-				],
-				"name": "Subbed",
 				"type": "event"
 			},
 			{

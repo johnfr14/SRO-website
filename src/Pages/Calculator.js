@@ -21,7 +21,7 @@ const Calculator = () => {
   const isOperatorDisabled = calcul.operation !== "" || calcul.nb1 === ""
   const isResultDisabled = !approved || (calcul.nb1 === "" || calcul.operation === "" || display === "")
 
-  console.log(calcul)
+  //console.log(calcul)
   // console.log(display)
   //console.log(web3State)
 
@@ -40,34 +40,28 @@ const Calculator = () => {
 
   const handleResultButton = async () => {
     let result;
-    let result2
     setLoading(true)
     try {
       switch(calcul.operation) {
         case '+':
           result = await calculator.add(calcul.nb1, display);
           await result.wait()
-          result2 = Number(calcul.nb1) + Number(display)
           break
         case '-':
           result = await calculator.sub(calcul.nb1, display);
           await result.wait()
-          result2 = calcul.nb1 - display
           break
         case '*':
           result = await calculator.mul(calcul.nb1, display);
           await result.wait()
-          result2 = calcul.nb1 * display
           break
         case '/':
           result = await calculator.div(calcul.nb1, display);
           await result.wait()
-          result2 = calcul.nb1 / display
           break
         case '%':
           result = await calculator.mod(calcul.nb1, display);
           await result.wait()
-          result2 = calcul.nb1 % display
           break
         default :
           console.log("fail")
@@ -76,10 +70,7 @@ const Calculator = () => {
       setError(e.error.message)
       setLoading(false)
     }
-    setLoading(false)
-    console.log(result)
-    handleCancelButton()
-    setResult([result2, true])
+    
   }
 
   const handleCancelButton = () => {
@@ -125,7 +116,26 @@ const Calculator = () => {
     }
     fetchData()
     
-  },[web3State, ico, sarahro])
+  },[web3State, ico, sarahro, calculator])
+
+  useEffect(() => {
+  // si myContract est pas null alors
+  if (calculator) {
+    const cb = (account,res) => {
+      // call back qui sera executée lorsque l'event sera émit 
+      // faire quelque chose avec param1 param2 ou param3
+      handleCancelButton()
+      setResult([res.toString(), true])
+      setLoading(false)
+    }
+    // ecouter sur l'event myEvent
+    calculator.on('Operation', cb)
+    return () => {
+      // arreter d'ecouter lorsque le component sera unmount
+      calculator.off('Operation', cb)
+    }
+  }
+}, [calculator])
 
   return (<>
     <h1>SRO Calculator ultra</h1>
