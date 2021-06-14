@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react/cjs/react.development"
 import { ethers } from "ethers"
 import { Web3Context } from "web3-hooks";
 import { IcoContext } from "../App"
-import "./calculator.css"
+import "./css/calculator.css"
 
 const Calculator = () => {
   const [ico, calculator, sarahro] = useContext(IcoContext)
