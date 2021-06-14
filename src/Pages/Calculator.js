@@ -19,8 +19,7 @@ const Calculator = () => {
 
   const spinner = <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 
-
-  // console.log(calcul)
+  console.log(calcul)
   // console.log(display)
   //console.log(web3State)
 
@@ -28,9 +27,12 @@ const Calculator = () => {
     if(['+','-','*','/','%'].includes(e.target.value)) {
       setCalcul({...calcul, nb1: display, operation: e.target.value})
       setDisplay("")
-    } else if (Number(e.target.value) > -1 && Number(e.target.value) < 10) {
+    } else if (Number(e.target.value) > -1 && Number(e.target.value) < 10 && calcul.operation === "") {
       setDisplay(display + e.target.value)
-    } 
+      setCalcul({nb1: display + e.target.value, operation: ""})
+    } else {
+      setDisplay(display + e.target.value)
+    }
     setResult([0, false])
   }
 
@@ -134,25 +136,25 @@ const Calculator = () => {
                 <button onClick={handleCancelButton} type="button" name="" value="c" class="global">c</button>
                 <button type="button" name="" value="(" class="global">SRO</button>
                 <button type="button" name="" value=")" class="global">🌖</button>
-                <button onClick={handleCalculButton} type="button" name="" value="%" class="global">%</button>
+                <button onClick={handleCalculButton} type="button" name="" value="%" class="global" disabled={calcul.operation !== ""}>%</button>
               </div>
               <div class="second-row col-12">
                 <button onClick={handleCalculButton} type="button" name="" value="7" class="global">7</button>
                 <button onClick={handleCalculButton} type="button" name="" value="8" class="global">8</button>
                 <button onClick={handleCalculButton} type="button" name="" value="9" class="global">9</button>
-                <button onClick={handleCalculButton} type="button" name="" value="/" class="global">/</button>
+                <button onClick={handleCalculButton} type="button" name="" value="/" class="global" disabled={calcul.operation !== ""}>/</button>
               </div>
               <div class="third-row col-12">
                 <button onClick={handleCalculButton} type="button" name="" value="4" class="global">4</button>
                 <button onClick={handleCalculButton} type="button" name="" value="5" class="global">5</button>
                 <button onClick={handleCalculButton} type="button" name="" value="6" class="global">6</button>
-                <button onClick={handleCalculButton} type="button" name="" value="*" class="global">X</button>
+                <button onClick={handleCalculButton} type="button" name="" value="*" class="global" disabled={calcul.operation !== ""}>X</button>
               </div>
               <div class="fourth-row col-12">
                 <button onClick={handleCalculButton} type="button" name="" value="1" class="global">1</button>
                 <button onClick={handleCalculButton} type="button" name="" value="2" class="global">2</button>
                 <button onClick={handleCalculButton} type="button" name="" value="3" class="global">3</button>
-                <button onClick={handleCalculButton} type="button" name="" value="-" class="global">-</button>
+                <button onClick={handleCalculButton} type="button" name="" value="-" class="global" disabled={calcul.operation !== ""}>-</button>
               </div>
               <div class="conflict col-9">
                 <div class="left">
@@ -166,7 +168,7 @@ const Calculator = () => {
 
                 </div>
                 <div class="right col-3">
-                  <button onClick={handleCalculButton} type="button" name="" value="+" class="global grey plus">+</button>
+                  <button onClick={handleCalculButton} type="button" name="" value="+" class="global grey plus" disabled={calcul.operation !== ""}>+</button>
                 </div>
               </div>
               <li class="d-flex align-items-start">
