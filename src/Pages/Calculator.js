@@ -8,16 +8,18 @@ const Calculator = () => {
   const [ico, calculator, sarahro] = useContext(IcoContext)
   const [web3State] = useContext(Web3Context)
   const [approved, setApproved] = useState(false)
+  const [balance, setBalance] = useState(0)
 
-  const [calcul, setCalcul] = useState({nb1: 0, operation: ""})
+  const [calcul, setCalcul] = useState({nb1: "", operation: ""})
   const [display, setDisplay] = useState("")
   const [result, setResult] = useState([0, false])
 
-  const [balance, setBalance] = useState(0)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
   const spinner = <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  const isOperatorDisabled = calcul.operation !== "" || calcul.nb1 === ""
+  const isResultDisabled = !approved || (calcul.nb1 === "" || calcul.operation === "" || display === "")
 
   console.log(calcul)
   // console.log(display)
@@ -82,14 +84,14 @@ const Calculator = () => {
 
   const handleCancelButton = () => {
     setDisplay("")
-    setCalcul({nb1: 0, operation: ""})
+    setCalcul({nb1: "", operation: ""})
     setResult([0, false])
   }
 
   const handleApproveButton = async () => {
         try {
         setLoading(true)
-        const tx = await sarahro.approve("0x18Da78627DBA05E217CF9B9d9dc5A0250E294825", ethers.utils.parseEther('10000000'))
+        const tx = await sarahro.approve("0xfA3c612D52B93423e65e672eFB1C7Fd427632b9c", ethers.utils.parseEther('10000000'))
         await tx.wait()
         setLoading(false)
         setApproved(true)
@@ -104,7 +106,7 @@ const Calculator = () => {
     async function fetchData() {
       if (web3State.isLogged) {
         try {
-          let allowance = await sarahro.allowance(web3State.account, "0x18Da78627DBA05E217CF9B9d9dc5A0250E294825")
+          let allowance = await sarahro.allowance(web3State.account, "0xfA3c612D52B93423e65e672eFB1C7Fd427632b9c")
           allowance = Math.floor(ethers.utils.formatEther(allowance))
           if (allowance > 0 ) {
           setApproved(true)
@@ -136,43 +138,43 @@ const Calculator = () => {
                 <button onClick={handleCancelButton} type="button" name="" value="c" class="global">c</button>
                 <button type="button" name="" value="(" class="global">SRO</button>
                 <button type="button" name="" value=")" class="global">🌖</button>
-                <button onClick={handleCalculButton} type="button" name="" value="%" class="global" disabled={calcul.operation !== ""}>%</button>
+                <button onClick={handleCalculButton} type="button" name="" value="%" class="global" disabled={isOperatorDisabled}>%</button>
               </div>
               <div class="second-row col-12">
                 <button onClick={handleCalculButton} type="button" name="" value="7" class="global">7</button>
                 <button onClick={handleCalculButton} type="button" name="" value="8" class="global">8</button>
                 <button onClick={handleCalculButton} type="button" name="" value="9" class="global">9</button>
-                <button onClick={handleCalculButton} type="button" name="" value="/" class="global" disabled={calcul.operation !== ""}>/</button>
+                <button onClick={handleCalculButton} type="button" name="" value="/" class="global" disabled={isOperatorDisabled}>/</button>
               </div>
               <div class="third-row col-12">
                 <button onClick={handleCalculButton} type="button" name="" value="4" class="global">4</button>
                 <button onClick={handleCalculButton} type="button" name="" value="5" class="global">5</button>
                 <button onClick={handleCalculButton} type="button" name="" value="6" class="global">6</button>
-                <button onClick={handleCalculButton} type="button" name="" value="*" class="global" disabled={calcul.operation !== ""}>X</button>
+                <button onClick={handleCalculButton} type="button" name="" value="*" class="global" disabled={isOperatorDisabled}>X</button>
               </div>
               <div class="fourth-row col-12">
                 <button onClick={handleCalculButton} type="button" name="" value="1" class="global">1</button>
                 <button onClick={handleCalculButton} type="button" name="" value="2" class="global">2</button>
                 <button onClick={handleCalculButton} type="button" name="" value="3" class="global">3</button>
-                <button onClick={handleCalculButton} type="button" name="" value="-" class="global" disabled={calcul.operation !== ""}>-</button>
+                <button onClick={handleCalculButton} type="button" name="" value="-" class="global" disabled={isOperatorDisabled}>-</button>
               </div>
               <div class="conflict col-9">
                 <div class="left">
                   <button onClick={handleCalculButton} type="button" name="" value="0" class="big">0</button>
                   <button onClick={() => setDisplay(display.split("").splice(0, (display.length - 1)).join(''))} type="button" name="" value="Del" class=" red small white-text top-margin">DEL</button>
 
-                  <button onClick={handleResultButton} type="button" name="" value="=" class="green white-text big2 top-margin" disabled={!approved}>{approved ? "" : <button onClick={handleApproveButton} id="approve" className="btn btn-light" disabled={loading}>{loading ?
+                  <button onClick={handleResultButton} type="button" name="" value="=" className={isResultDisabled ? "dark-grey white-text big2 top-margin" : "green white-text big2 top-margin"} disabled={isResultDisabled}>{approved ? "" : <button onClick={handleApproveButton} id="approve" className="btn btn-light" disabled={loading}>{loading ?
                           <p>{spinner}Processing...</p> : "Approve"}</button>}
                     {loading ? spinner : "="}
                   </button>
 
                 </div>
                 <div class="right col-3">
-                  <button onClick={handleCalculButton} type="button" name="" value="+" class="global grey plus" disabled={calcul.operation !== ""}>+</button>
+                  <button onClick={handleCalculButton} type="button" name="" value="+" class="global grey plus" disabled={isOperatorDisabled}>+</button>
                 </div>
               </div>
               <li class="d-flex align-items-start">
-                  <p>balance SRO : {balance} SRO</p>
+                  <p>balance : {balance} SRO</p>
               </li>
               { error && <div class="alert alert-danger" role="alert">{error}</div>}
         </div>

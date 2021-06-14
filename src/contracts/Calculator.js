@@ -1,4 +1,4 @@
-export const calculatorAddress = "0x18Da78627DBA05E217CF9B9d9dc5A0250E294825"
+export const calculatorAddress = "0xfA3c612D52B93423e65e672eFB1C7Fd427632b9c"
 
 export const calculatorAbi =  [
 			{
