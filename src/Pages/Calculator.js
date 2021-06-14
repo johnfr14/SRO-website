@@ -19,7 +19,7 @@ const Calculator = () => {
 
   const spinner = <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
   const isOperatorDisabled = calcul.operation !== "" || calcul.nb1 === ""
-  const isResultDisabled = !approved || (calcul.nb1 === "" || calcul.operation === "" || display === "")
+  const isResultDisabled = !approved || (calcul.nb1 === "" || calcul.operation === "" || display === "") || loading
 
   //console.log(calcul)
   // console.log(display)
