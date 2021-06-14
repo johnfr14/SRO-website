@@ -91,7 +91,7 @@ const Calculator = () => {
   const handleApproveButton = async () => {
         try {
         setLoading(true)
-        const tx = await sarahro.approve("0xfA3c612D52B93423e65e672eFB1C7Fd427632b9c", ethers.utils.parseEther('10000000'))
+        const tx = await sarahro.approve(calculator.address, ethers.utils.parseEther('10000000'))
         await tx.wait()
         setLoading(false)
         setApproved(true)
@@ -106,8 +106,8 @@ const Calculator = () => {
     async function fetchData() {
       if (web3State.isLogged) {
         try {
-          let allowance = await sarahro.allowance(web3State.account, "0xfA3c612D52B93423e65e672eFB1C7Fd427632b9c")
-          allowance = Math.floor(ethers.utils.formatEther(allowance))
+          let allowance = await sarahro.allowance(web3State.account, calculator.address)
+         
           if (allowance > 0 ) {
           setApproved(true)
           setError("")
