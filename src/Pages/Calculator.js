@@ -3,7 +3,7 @@ import { ethers } from "ethers"
 import { Web3Context } from "web3-hooks";
 import { IcoContext } from "../App"
 import "./css/calculator.css"
-import { Flex, Heading, Input, Button, HStack, useColorMode, useColorModeValue, Spacer, Grid, Stack, GridItem, Text } from "@chakra-ui/react";
+import { Flex, Heading, Input, Button, HStack, useColorMode, useColorModeValue, Spacer, Grid, Stack, GridItem, Text, Box } from "@chakra-ui/react";
 
 const Calculator = () => {
   const { toggleColorMode } = useColorMode()
@@ -148,14 +148,13 @@ const Calculator = () => {
     <Flex justifyContent="center" background="blue.100" mb={5} rounded={6}>
       <Heading>SRO Calculator ultra</Heading>
     </Flex>
-        <Flex direction="column" height="100px" >
-                <Text>{result[1] ? result[0] : display}</Text>
-
+        <Flex direction="column" >
+                <Text color="white" bg="blackAlpha.800" fontSize="5xl" textAlign="right" height="80px">{result[1] ? result[0] : display}</Text>
                 <Stack direction="row" spacing={4} align="center">
-                  <Button mb={2} width="100%" onClick={handleCancelButton} colorScheme="orange">c</Button>
-                  <Button mb={2} width="100%" colorScheme="teal">SRO</Button>
-                  <Button mb={2} width="100%" colorScheme="teal">🌖</Button>
-                  <Button onClick={handleCalculButton} value="%" mb={2} width="100%" disabled={isOperatorDisabled}>%</Button>
+                  <Button onClick={handleCancelButton} mb={2} mt={2} width="100%" colorScheme="orange" variant="solid">c</Button>
+                  <Button mb={2} width="100%" colorScheme="teal" variant="solid">SRO</Button>
+                  <Button mb={2} width="100%" colorScheme="teal" variant="solid">🌖</Button>
+                  <Button onClick={handleCalculButton} value="%"  mb={2} width="100%" colorScheme="gray" variant="solid" disabled={isOperatorDisabled}>%</Button>
                 </Stack>
                 <Stack direction="row" spacing={4} align="center">
                   <Button onClick={handleCalculButton} value="7" mb={2} width="100%" colorScheme="blackAlpha" variant="solid">7</Button>
@@ -170,31 +169,32 @@ const Calculator = () => {
                   <Button onClick={handleCalculButton}value="*" mb={2} width="100%" colorScheme="gray" variant="solid" disabled={isOperatorDisabled}>X</Button>
                 </Stack>
                 <Stack direction="row" spacing={4} align="center">
-                  <Button onClick={handleCalculButton} value="1" mb={2} width="100%" colorScheme="blackAlpha" variant="solid">1</Button>
-                  <Button onClick={handleCalculButton} value="2" mb={2} width="100%" colorScheme="blackAlpha" variant="solid">2</Button>
-                  <Button onClick={handleCalculButton} value="3" mb={2} width="100%" colorScheme="blackAlpha" variant="solid">3</Button>
-                  <Button onClick={handleCalculButton} value="-" mb={2} width="100%" colorScheme="gray" variant="solid" disabled={isOperatorDisabled}>-</Button>
+                  <Button onClick={handleCalculButton} value="1" width="100%" colorScheme="blackAlpha" variant="solid">1</Button>
+                  <Button onClick={handleCalculButton} value="2"  width="100%" colorScheme="blackAlpha" variant="solid">2</Button>
+                  <Button onClick={handleCalculButton} value="3"  width="100%" colorScheme="blackAlpha" variant="solid">3</Button>
+                  <Button onClick={handleCalculButton} value="-"  width="100%" colorScheme="gray" variant="solid" disabled={isOperatorDisabled}>-</Button>
                 </Stack>
 
-                <Grid mt={2} templateRows="repeat(2, 1fr)" templateColumns="repeat(4, 1fr)" gap={4}>
+                <Grid mt={2} templateColumns="repeat(4, 1fr)" gap={3} >
                     <GridItem colSpan="3" rowSpan="1">
-                      <Button onClick={handleCalculButton} width="100%" colorScheme="blackAlpha" variant="solid" value="0">0</Button>
-                    </GridItem>
-                    <GridItem colSpan="1" rowSpan="2">
-                      <Button onClick={handleCalculButton} width="100%" height="100%" colorScheme="gray" variant="solid" value="+" disabled={isOperatorDisabled}>+</Button>
+                      <Grid templateColumns="repeat(4, 1fr)" gap={1}>
+                        <GridItem colSpan="4" rowSpan="0.5">
+                          <Button onClick={handleCalculButton} width="100%" colorScheme="blackAlpha" variant="solid" value="0">0</Button>
+                        </GridItem>
+                        <GridItem colSpan="1" rowSpan="1">
+                          <Button onClick={() => setDisplay(display.split("").splice(0, (display.length - 1)).join(''))} width="100%" height="75%" m={1} colorScheme="blackAlpha" variant="solid" value="Del">DEL</Button>
+                        </GridItem>
+                        <GridItem colSpan="3" rowSpan="1">
+                          <Button onClick={handleResultButton} width="100%" height="75%" colorScheme="green" value="=" className={isResultDisabled ? "dark-grey white-text big2 top-margin" : "green white-text big2 top-margin"} disabled={isResultDisabled}>{approved ? "" : <Button onClick={handleApproveButton} disabled={loading}>{loading ?
+                                  <p>{spinner}Processing...</p> : "Approve"}</Button>}
+                            {loading ? spinner : "="}
+                          </Button>
+                        </GridItem>
+                      </Grid>
                     </GridItem>
                     <GridItem colSpan="1" rowSpan="1">
-                      <Button onClick={() => setDisplay(display.split("").splice(0, (display.length - 1)).join(''))} width="100%" colorScheme="blackAlpha" variant="solid" value="Del">DEL</Button>
+                      <Button onClick={handleCalculButton} width="100%" height="90%" colorScheme="gray" variant="solid" value="+" disabled={isOperatorDisabled}>+</Button>
                     </GridItem>
-                    <GridItem colSpan="2" rowSpan="1">
-                      <Button onClick={handleResultButton} width="100%" colorScheme="green" value="=" className={isResultDisabled ? "dark-grey white-text big2 top-margin" : "green white-text big2 top-margin"} disabled={isResultDisabled}>{approved ? "" : <Button onClick={handleApproveButton} id="approve" className="btn btn-light" disabled={loading}>{loading ?
-                              <p>{spinner}Processing...</p> : "Approve"}</Button>}
-                        {loading ? spinner : "="}
-                      </Button>
-                    </GridItem>
-
-                    
-
                 </Grid>
                 <li class="d-flex align-items-start">
                     <p>balance : {balance} SRO</p>

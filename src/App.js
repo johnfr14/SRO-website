@@ -12,8 +12,7 @@ import Calculator from './Pages/Calculator'
 
 export const CounterContext = React.createContext(null)
 export const IcoContext = React.createContext(null)
-export const CalculatorContext = React.createContext(null)
-export const SarahroContext = React.createContext(null)
+
 
 function App() {
   const counter = useContract(counterAddress, counterAbi)
